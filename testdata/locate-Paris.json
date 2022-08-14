@@ -1,0 +1,93 @@
+{
+    "response": {
+        "results": {
+            "results": [
+                {
+                    "id": "2988507",
+                    "name": "Paris",
+                    "container": "France",
+                    "containerId": 3017382,
+                    "language": "en",
+                    "timezone": "Europe/Paris",
+                    "country": "FR",
+                    "latitude": 48.85341,
+                    "longitude": 2.3488,
+                    "placeType": "settlement"
+                },
+                {
+                    "id": "6942553",
+                    "name": "Paris",
+                    "container": "Canada",
+                    "containerId": 6251999,
+                    "language": "en",
+                    "timezone": "America/Toronto",
+                    "country": "CA",
+                    "latitude": 43.2,
+                    "longitude": -80.38333,
+                    "placeType": "settlement"
+                },
+                {
+                    "id": "6269554",
+                    "name": "Paris Charles de Gaulle Airport",
+                    "container": "France",
+                    "containerId": 3017382,
+                    "language": "en",
+                    "timezone": "Europe/Paris",
+                    "country": "FR",
+                    "latitude": 49.01278,
+                    "longitude": 2.55,
+                    "placeType": "airport"
+                },
+                {
+                    "id": "2988500",
+                    "name": "Paris Orly Airport",
+                    "container": "France",
+                    "containerId": 3017382,
+                    "language": "en",
+                    "timezone": "Europe/Paris",
+                    "country": "FR",
+                    "latitude": 48.72528,
+                    "longitude": 2.35944,
+                    "placeType": "airport"
+                },
+                {
+                    "id": "4125402",
+                    "name": "Paris (AR)",
+                    "container": "United States",
+                    "containerId": 6252001,
+                    "language": "en",
+                    "timezone": "America/Chicago",
+                    "country": "US",
+                    "latitude": 35.29203,
+                    "longitude": -93.72992,
+                    "placeType": "settlement"
+                },
+                {
+                    "id": "4777909",
+                    "name": "Paris (VA)",
+                    "container": "United States",
+                    "containerId": 6252001,
+                    "language": "en",
+                    "timezone": "America/New_York",
+                    "country": "US",
+                    "latitude": 39.00455,
+                    "longitude": -77.95139,
+                    "placeType": "settlement"
+                },
+                {
+                    "id": "2988502",
+                    "name": "Paris-Le Bourget Airport",
+                    "container": "France",
+                    "containerId": 3017382,
+                    "language": "en",
+                    "timezone": "Europe/Paris",
+                    "country": "FR",
+                    "latitude": 48.96944,
+                    "longitude": 2.44139,
+                    "placeType": "airport"
+                }
+            ],
+            "totalResults": 7
+        }
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "station" : {
+      "name" : "Manchester/Intl",
+      "distance" : {
+        "km" : 14.87,
+        "miles" : 9.24
+      },
+      "latitude" : 53.35,
+      "longitude" : -2.2833
+    },
+    "observations" : [ {
+      "localTime" : "17:00",
+      "localDate" : "2022-07-26",
+      "weatherType" : null,
+      "weatherTypeText" : null,
+      "temperature" : {
+        "C" : 18,
+        "F" : 64
+      },
+      "wind" : {
+        "windSpeedMph" : 12,
+        "windSpeedKph" : 20,
+        "windDirection" : "W",
+        "windDirectionFull" : "Westerly",
+        "windDirectionAbbreviation" : "W"
+      },
+      "humidityPercent" : 56,
+      "pressureMb" : 1021,
+      "pressureDirection" : "Steady",
+      "visibility" : null,
+      "updateTimestamp" : "2022-07-26T17:00:00+01:00"
+    } ]
+  }
