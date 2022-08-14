@@ -15,14 +15,24 @@ Locations can be in the form of
 - The location ID (see [Geonames](https://www.geonames.org/) dataset for more details on location IDs, data dump is [here](http://download.geonames.org/export/dump/))
 e.g.
 
-```zsh
-wx Edinburgh Airport     // By specific location
-wx New York              // By city or town
-wx Lake District         // By region
-wx Switzerland           // By country
-wx SW19                  // By postcode (e.g. Wimbeldon)
-wx 48.8566,2.3522        // By longitude and latitude (e.g. Paris)
-wx 2993458               // By location ID (e.g. Monaco - https://www.geonames.org/2993458)
+```shell
+wx Edinburgh Airport     # By specific location
+wx New York              # By city or town
+wx Lake District         # By region
+wx Switzerland           # By country
+wx SW19                  # By postcode (e.g. Wimbeldon)
+wx 48.8566,2.3522        # By longitude and latitude (e.g. Paris)
+wx 2993458               # By location ID (e.g. Monaco - https://www.geonames.org/2993458)
 ```
+
+A preset location can be used by setting the `WX_QUERY` env variable
+```zsh
+export WX_QUERY=Paris
+wx
+```
+Heres an example of a weather report
+<p align="center">
+<img width="779" alt="Screenshot 2022-08-14 at 18 19 12" src="https://user-images.githubusercontent.com/3924123/184547884-53e486fe-6deb-48fe-ad93-dfd281204625.png">
+</p>
 
 
