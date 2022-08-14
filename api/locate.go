@@ -1,10 +1,6 @@
 package api
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"net/http"
 	"net/url"
 )
 
@@ -41,27 +37,16 @@ type LocateAPIResult struct {
 
 // LocationMatches returns the matched locations that match the given query.
 func LocationMatches(query string) ([]LocateAPIResult, error) {
-	base, _ := url.Parse(bbcLocationsURL)
+	locateUrl, _ := url.Parse(bbcLocationsURL)
 	q := url.Values{}
 	q.Add("s", query)
 	q.Add("format", "json")
 	q.Add("order", "importance")
 	q.Add("a", "true")
-	base.RawQuery = q.Encode()
-
-	resp, err := http.Get(base.String())
+	locateUrl.RawQuery = q.Encode()
+	rawResponse, err := HttpGetWithRetry[LocateAPIResponse]("locator", locateUrl.String())
 	if err != nil {
-		return nil, fmt.Errorf("unable to query locator API: %w", err)
+		return nil, err
 	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("unable to read body from query locator API: %w", err)
-	}
-	var responseJson LocateAPIResponse
-	err = json.Unmarshal(body, &responseJson)
-	if err != nil {
-		return nil, fmt.Errorf("unable to decode JSON from query locator API: %w", err)
-	}
-	return responseJson.Response.Results.Results, nil
+	return rawResponse.Response.Results.Results, nil
 }

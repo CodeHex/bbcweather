@@ -1,10 +1,7 @@
 package api
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"time"
 )
 
@@ -15,7 +12,7 @@ import (
 
 const bbcForecastURL = "https://weather-broker-cdn.api.bbci.co.uk/en/forecast/aggregated/%d"
 
-type ForecastAPIResult struct {
+type ForecastAPIResponse struct {
 	Forecasts []struct {
 		Detailed struct {
 			IssueDate   time.Time `json:"issueDate"`
@@ -103,38 +100,7 @@ type ForecastAPIResult struct {
 	Night bool `json:"night"`
 }
 
-func ForecastWeather(id int) (ForecastAPIResult, error) {
-	var resp *http.Response
-	var err error
-	for i := 0; i < 20; i++ {
-		resp, err = http.Get(fmt.Sprintf(bbcForecastURL, id))
-		if err != nil {
-			return ForecastAPIResult{}, fmt.Errorf("unable to query forecast API: %w", err)
-		}
-		defer resp.Body.Close()
-
-		if resp.StatusCode == http.StatusAccepted {
-			time.Sleep(time.Second * 2)
-			fmt.Println("Waiting for forecast API to process request...")
-			continue
-		}
-		if resp.StatusCode == http.StatusOK {
-			break
-		}
-	}
-
-	if resp.StatusCode != http.StatusOK {
-		return ForecastAPIResult{}, fmt.Errorf("unable to query forecast API after retries status code: %s", resp.Status)
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return ForecastAPIResult{}, fmt.Errorf("unable to read body from forecast API: %w", err)
-	}
-	var response ForecastAPIResult
-	err = json.Unmarshal(body, &response)
-	if err != nil {
-		return ForecastAPIResult{}, fmt.Errorf("unable to decode JSON from forecast API: %w", err)
-	}
-	return response, nil
+func ForecastWeather(id int) (ForecastAPIResponse, error) {
+	url := fmt.Sprintf(bbcForecastURL, id)
+	return HttpGetWithRetry[ForecastAPIResponse]("forecast", url)
 }
