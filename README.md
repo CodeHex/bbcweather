@@ -11,7 +11,7 @@ go install github.com/codehex/bbcweather/cmd/wx@latest
 Locations can be in the form of
 - The name of the location, city or region
 - The first part of the post code
-- Longitutde and latitide,
+- Longitude and latitude
 - The location ID (see [Geonames](https://www.geonames.org/) dataset for more details on location IDs, data dump is [here](http://download.geonames.org/export/dump/))
 e.g.
 
