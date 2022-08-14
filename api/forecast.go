@@ -10,7 +10,7 @@ import (
 // Queries are made with this format
 // https://weather-broker-cdn.api.bbci.co.uk/en/forecast/aggregated/{location_id}
 
-const bbcForecastURL = "https://weather-broker-cdn.api.bbci.co.uk/en/forecast/aggregated/%d"
+const bbcForecastURL = "https://weather-broker-cdn.api.bbci.co.uk/en/forecast/aggregated/%s"
 
 type ForecastAPIResponse struct {
 	Forecasts []struct {
@@ -100,7 +100,7 @@ type ForecastAPIResponse struct {
 	Night bool `json:"night"`
 }
 
-func ForecastWeather(id int) (ForecastAPIResponse, error) {
+func ForecastWeather(id string) (ForecastAPIResponse, error) {
 	url := fmt.Sprintf(bbcForecastURL, id)
 	return HttpGetWithRetry[ForecastAPIResponse]("forecast", url)
 }

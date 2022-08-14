@@ -3,13 +3,12 @@ package bbcweather
 import (
 	_ "embed"
 	"fmt"
-	"strconv"
 
 	"github.com/codehex/bbcweather/api"
 )
 
 type Location struct {
-	ID                  int
+	ID                  string
 	Name                string
 	Region              string
 	Country             string
@@ -27,17 +26,13 @@ func GetLocationByQuery(query string) (Location, bool, error) {
 		return Location{}, false, nil
 	}
 
-	idInt, err := strconv.Atoi(apiResults[0].ID)
-	if err != nil {
-		return Location{}, false, fmt.Errorf("failed to convert ID to int: %w", err)
-	}
 	country, ok := GetCountryFromCode(apiResults[0].Country)
 	if !ok {
 		return Location{}, false, fmt.Errorf("failed to get country from code: %w", err)
 	}
 
 	return Location{
-		ID:        idInt,
+		ID:        apiResults[0].ID,
 		Name:      apiResults[0].Name,
 		Region:    apiResults[0].Container,
 		Country:   country,

@@ -11,7 +11,7 @@ import (
 // Queries are made with this format
 // https://weather-broker-cdn.api.bbci.co.uk/en/observation/{location_id}
 
-const bbcObservationURL = "https://weather-broker-cdn.api.bbci.co.uk/en/observation/%d"
+const bbcObservationURL = "https://weather-broker-cdn.api.bbci.co.uk/en/observation/%s"
 
 type ObserveAPIResult struct {
 	Station struct {
@@ -45,7 +45,7 @@ type ObserveAPIResult struct {
 	} `json:"observations"`
 }
 
-func CurrentObservedWeather(id int) (ObserveAPIResult, error) {
+func CurrentObservedWeather(id string) (ObserveAPIResult, error) {
 	url := fmt.Sprintf(bbcObservationURL, id)
 	return HttpGetWithRetry[ObserveAPIResult]("observe", url)
 }
