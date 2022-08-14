@@ -30,9 +30,9 @@ A preset location can be used by setting the `WX_QUERY` env variable
 export WX_QUERY=Paris
 wx
 ```
-Heres an example of a weather report
+Here's an example of a weather report
 <p align="center">
-<img width="779" alt="Screenshot 2022-08-14 at 18 19 12" src="https://user-images.githubusercontent.com/3924123/184547884-53e486fe-6deb-48fe-ad93-dfd281204625.png">
+<img width="779" alt="wx Output" src="https://user-images.githubusercontent.com/3924123/184547884-53e486fe-6deb-48fe-ad93-dfd281204625.png">
 </p>
 
 
