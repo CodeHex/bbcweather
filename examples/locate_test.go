@@ -13,7 +13,7 @@ func TestLocationByTextQueryMatches(t *testing.T) {
 		ExpResult bbcweather.Location
 	}{
 		{Query: "Manchester", ExpResult: bbcweather.Location{
-			ID:        2643123,
+			ID:        "2643123",
 			Name:      "Manchester",
 			Region:    "Manchester",
 			Country:   "United Kingdom",
@@ -21,7 +21,7 @@ func TestLocationByTextQueryMatches(t *testing.T) {
 			Longitude: -2.23743,
 		}},
 		{Query: "Melbourne", ExpResult: bbcweather.Location{
-			ID:        2158177,
+			ID:        "2158177",
 			Name:      "Melbourne",
 			Region:    "Australia",
 			Country:   "Australia",
@@ -29,7 +29,7 @@ func TestLocationByTextQueryMatches(t *testing.T) {
 			Longitude: 144.96332,
 		}},
 		{Query: "Port Louis", ExpResult: bbcweather.Location{
-			ID:        934154,
+			ID:        "934154",
 			Name:      "Port Louis",
 			Region:    "Mauritius",
 			Country:   "Mauritius",
@@ -37,7 +37,7 @@ func TestLocationByTextQueryMatches(t *testing.T) {
 			Longitude: 57.49889,
 		}},
 		{Query: "Stoke Gifford", ExpResult: bbcweather.Location{
-			ID:        2636854,
+			ID:        "2636854",
 			Name:      "Stoke Gifford",
 			Region:    "South Gloucestershire",
 			Country:   "United Kingdom",
