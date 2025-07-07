@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"text/tabwriter"
+	"time"
 
 	"github.com/codehex/bbcweather"
 	"github.com/fatih/color"
@@ -89,6 +90,40 @@ func PrintForecast(report bbcweather.ForecastReport) {
 			labelColor.Sprintf("%d%%", day.ChanceOfRainPercent),
 			day.WeatherDescription)
 
+	}
+	w.Flush()
+}
+
+func PrintHourlyForecast(report bbcweather.ForecastReport) {
+	if len(report.HourlyForecasts) == 0 {
+		fmt.Println("No hourly forecasts available")
+		return
+	}
+
+	fmt.Println("--------------------------------------------------")
+	fmt.Printf("%s (updated at %s)\n", titleColor.Sprint("Hourly Forecast"), report.DayForecasts[0].LastUpdated.Format("3:04pm"))
+	fmt.Println()
+
+	w := tabwriter.NewWriter(os.Stdout, 1, 3, 3, ' ', 0)
+
+	fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n",
+		titleColor.Sprint("Time"),
+		titleColor.Sprint("Temp"),
+		titleColor.Sprint("Wind"),
+		titleColor.Sprint(""),
+		titleColor.Sprint("Description"))
+
+	today := time.Now().Day()
+	for _, hour := range report.HourlyForecasts {
+		if hour.ForecastDate.Day() != today {
+			continue
+		}
+		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n",
+			labelColor.Sprint(hour.Timeslot),
+			ColorizeTempC(hour.TemperatureC),
+			ColorizeWindMph(hour.WindSpeedMph, hour.WindCategory),
+			"",
+			hour.Description)
 	}
 	w.Flush()
 }

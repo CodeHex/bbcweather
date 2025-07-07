@@ -10,6 +10,7 @@ import (
 type ForecastReport struct {
 	ForecastLocation Location
 	DayForecasts     []DayForecast
+	HourlyForecasts  []HourlyForecast
 }
 
 type DayForecast struct {
@@ -25,6 +26,15 @@ type DayForecast struct {
 	WindSpeedKph        int
 	WindSpeedMph        int
 	WindCategory        WindType
+}
+
+type HourlyForecast struct {
+	ForecastDate time.Time
+	Timeslot     string
+	TemperatureC int
+	WindSpeedMph int
+	WindCategory WindType
+	Description  string
 }
 
 func GetWeatherForecast(loc Location) (ForecastReport, error) {
@@ -55,6 +65,24 @@ func GetWeatherForecast(loc Location) (ForecastReport, error) {
 			WindCategory:        GetWindTypeFromSpeed(dayReport.Summary.Report.WindSpeedMph),
 		}
 		result.DayForecasts = append(result.DayForecasts, forecast)
+	}
+
+	for _, dayReport := range apiResponse.Forecasts {
+		for _, report := range dayReport.Detailed.Reports {
+			forecastDate, err := time.Parse("2006-01-02", report.LocalDate)
+			if err != nil {
+				return ForecastReport{}, fmt.Errorf("unable to convert forecast date '%s' to time: %w", report.LocalDate, err)
+			}
+			hourlyForecast := HourlyForecast{
+				ForecastDate: forecastDate,
+				Timeslot:     report.Timeslot,
+				TemperatureC: report.TemperatureC,
+				WindSpeedMph: report.WindSpeedMph,
+				WindCategory: GetWindTypeFromSpeed(report.WindSpeedMph),
+				Description:  report.WeatherTypeText,
+			}
+			result.HourlyForecasts = append(result.HourlyForecasts, hourlyForecast)
+		}
 	}
 	return result, nil
 }
