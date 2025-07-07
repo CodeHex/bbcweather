@@ -94,7 +94,7 @@ func PrintForecast(report bbcweather.ForecastReport) {
 	w.Flush()
 }
 
-func PrintHourlyForecast(report bbcweather.ForecastReport) {
+func PrintHourlyForecast(report bbcweather.ForecastReport, day string) {
 	if len(report.HourlyForecasts) == 0 {
 		fmt.Println("No hourly forecasts available")
 		return
@@ -113,9 +113,20 @@ func PrintHourlyForecast(report bbcweather.ForecastReport) {
 		titleColor.Sprint(""),
 		titleColor.Sprint("Description"))
 
-	today := time.Now().Day()
+	now := time.Now()
+	var dayToDisplay time.Time
+	switch day {
+	case "today":
+		dayToDisplay = now
+	case "tomorrow":
+		dayToDisplay = now.AddDate(0, 0, 1)
+	default:
+		// Should not happen
+		return
+	}
+
 	for _, hour := range report.HourlyForecasts {
-		if hour.ForecastDate.Day() != today {
+		if hour.ForecastDate.Day() != dayToDisplay.Day() {
 			continue
 		}
 		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n",

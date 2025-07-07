@@ -11,6 +11,7 @@ import (
 
 func main() {
 	today := flag.Bool("today", false, "Show today's hourly forecast")
+	tomorrow := flag.Bool("tomorrow", false, "Show tomorrow's hourly forecast")
 	flag.Parse()
 
 	args := flag.Args()
@@ -48,7 +49,9 @@ func main() {
 		os.Exit(1)
 	}
 	if *today {
-		PrintHourlyForecast(forecast)
+		PrintHourlyForecast(forecast, "today")
+	} else if *tomorrow {
+		PrintHourlyForecast(forecast, "tomorrow")
 	} else {
 		PrintForecast(forecast)
 	}
