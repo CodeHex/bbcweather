@@ -106,11 +106,10 @@ func PrintHourlyForecast(report bbcweather.ForecastReport, day string) {
 
 	w := tabwriter.NewWriter(os.Stdout, 1, 3, 3, ' ', 0)
 
-	fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n",
+	fmt.Fprintf(w, "%s\t%s\t%s\t%s\n",
 		titleColor.Sprint("Time"),
 		titleColor.Sprint("Temp"),
 		titleColor.Sprint("Wind"),
-		titleColor.Sprint(""),
 		titleColor.Sprint("Description"))
 
 	now := time.Now()
@@ -129,11 +128,10 @@ func PrintHourlyForecast(report bbcweather.ForecastReport, day string) {
 		if hour.ForecastDate.Day() != dayToDisplay.Day() {
 			continue
 		}
-		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n",
+		fmt.Fprintf(w, "%s\t%s\t%s\t%s\n",
 			labelColor.Sprint(hour.Timeslot),
 			ColorizeTempC(hour.TemperatureC),
 			ColorizeWindMph(hour.WindSpeedMph, hour.WindCategory),
-			"",
 			hour.Description)
 	}
 	w.Flush()
