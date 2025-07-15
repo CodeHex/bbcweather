@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -9,7 +10,11 @@ import (
 )
 
 func main() {
-	args := os.Args[1:]
+	today := flag.Bool("today", false, "Show today's hourly forecast")
+	tomorrow := flag.Bool("tomorrow", false, "Show tomorrow's hourly forecast")
+	flag.Parse()
+
+	args := flag.Args()
 	data := strings.Join(args, " ")
 	query := os.Getenv("WX_QUERY")
 	if data != "" {
@@ -43,5 +48,11 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	PrintForecast(forecast)
+	if *today {
+		PrintHourlyForecast(forecast, "today")
+	} else if *tomorrow {
+		PrintHourlyForecast(forecast, "tomorrow")
+	} else {
+		PrintForecast(forecast)
+	}
 }
