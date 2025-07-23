@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/codehex/bbcweather"
 )
@@ -15,7 +14,11 @@ func main() {
 	flag.Parse()
 
 	args := flag.Args()
-	data := strings.Join(args, " ")
+	data := ""
+	if len(args) > 0 {
+		data = args[0]
+	}
+
 	query := os.Getenv("WX_QUERY")
 	if data != "" {
 		query = data

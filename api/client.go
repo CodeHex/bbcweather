@@ -2,22 +2,30 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"time"
 )
 
 const maxRetries = 20
-const waitBetweenRetries = time.Second * 2
+const waitBetweenRetries = time.Second * 1
 
 func HttpGetWithRetry[T any](name, url string) (T, error) {
 	var result T
 	var response *http.Response
 	var err error
 	for i := 0; i < maxRetries; i++ {
-		response, err = http.Get(url)
+		client := &http.Client{Timeout: time.Second * 2}
+		response, err = client.Get(url)
 		if err != nil {
+			// EOF is a common error when the server is not ready to accept requests yet
+			if errors.Is(err, io.EOF) || isTimeout(err) {
+				time.Sleep(waitBetweenRetries)
+				continue
+			}
 			return result, fmt.Errorf("unable to query %s API: %w", name, err)
 		}
 		defer response.Body.Close()
@@ -45,4 +53,9 @@ func HttpGetWithRetry[T any](name, url string) (T, error) {
 		return result, fmt.Errorf("unable to decode JSON from %s API: %w", name, err)
 	}
 	return result, nil
+}
+
+func isTimeout(err error) bool {
+	nerr, ok := err.(net.Error)
+	return ok && nerr.Timeout()
 }
