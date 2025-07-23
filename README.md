@@ -23,6 +23,8 @@ wx Switzerland           # By country
 wx SW19                  # By postcode (e.g. Wimbeldon)
 wx 48.8566,2.3522        # By longitude and latitude (e.g. Paris)
 wx 2993458               # By location ID (e.g. Monaco - https://www.geonames.org/2993458)
+wx Bristol --today       # Today's hourly forecast for a specific location
+wx Paris --tomorrow      # Tomorrow's hourly forecast for a city
 ```
 
 A preset location can be used by setting the `WX_QUERY` env variable
